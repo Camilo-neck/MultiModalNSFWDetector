@@ -6,14 +6,14 @@ namespace MultiModalNSFWDetector.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class ContentSafetyAnalyzeTextController : ControllerBase
+public class ContentSafetyAnalyzerController : ControllerBase
 {
 
-    private readonly ILogger<ContentSafetyAnalyzeTextController> _logger;
+    private readonly ILogger<ContentSafetyAnalyzerController> _logger;
     private readonly ContentSafetySampleAnalyzeTextService _contentSafetySampleAnalyzeTextService;
     private readonly SpeechToTextService _speechToTextService;
 
-    public ContentSafetyAnalyzeTextController(ILogger<ContentSafetyAnalyzeTextController> logger, 
+    public ContentSafetyAnalyzerController(ILogger<ContentSafetyAnalyzerController> logger, 
         ContentSafetySampleAnalyzeTextService contentSafetySampleAnalyzeTextService
         , SpeechToTextService speechToTextService)
     {

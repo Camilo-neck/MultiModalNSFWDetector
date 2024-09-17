@@ -10,9 +10,9 @@ public class SpeechToTextService
     private static string _speechEndpoint;
     private static string _speechKey;
     private static string _speechRegion;
-    private static ILogger<ContentSafetyAnalyzeTextController> _logger;
+    private static ILogger<SpeechToTextService> _logger;
 
-    public SpeechToTextService(ILogger<ContentSafetyAnalyzeTextController> logger)
+    public SpeechToTextService(ILogger<SpeechToTextService> logger)
     {
 		DotNetEnv.Env.TraversePath().Load();
         _speechEndpoint = DotNetEnv.Env.GetString("SPEECH_ENDPOINT");
