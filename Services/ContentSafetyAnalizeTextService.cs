@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using Azure;
 using Azure.Core;
 using Azure.AI.ContentSafety;
@@ -6,19 +7,19 @@ using MultiModalNSFWDetector.Models;
 using MultiModalNSFWDetector.Controllers;
 
 namespace MultiModalNSFWDetector.Services;
-
 class ContentSafetySampleAnalyzeTextService
 {
 	private static ILogger<ContentSafetyAnalyzeTextController> _logger;
 	public ContentSafetySampleAnalyzeTextService(ILogger<ContentSafetyAnalyzeTextController> logger)
 	{
+		DotNetEnv.Env.TraversePath().Load();
 		_logger = logger;
 	}
 	public AnalysisResponse AnalyzeText(string? sendedText = null)
 	{
 		// retrieve the endpoint and key from the environment variables created earlier
-		string endpoint = "https://cj-safety-service.cognitiveservices.azure.com/";
-		string key = "7fabc0da798b44e5b163f3e7af0e397d";
+		string endpoint = Environment.GetEnvironmentVariable("CONTENT_SAFETY_ENDPOINT");
+		string key = Environment.GetEnvironmentVariable("CONTENT_SAFETY_KEY");
 
 		ContentSafetyClient client = new ContentSafetyClient(new Uri(endpoint), new AzureKeyCredential(key));
 

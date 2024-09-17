@@ -2,7 +2,26 @@
 bin/
 obj/
 
+# Environment
+*.vscode
+*.vscode-test
+*.idea
+*.vs
+*.suo
+*.user
+*.userprefs
+*.usertasks
+*.usersettings
+
+# Dotenv
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
 # Ignore NuGet packages
+*.cache
 *.nupkg
 packages/
 
