@@ -21,13 +21,17 @@ namespace MultiModalNSFWDetector.Services
 
         public AnalysisResponse AnalyzeText(string? sendedText = null)
         {
-            string endpoint = Environment.GetEnvironmentVariable("CONTENT_SAFETY_ENDPOINT");
-            string key = Environment.GetEnvironmentVariable("CONTENT_SAFETY_KEY");
+            string endpoint = Environment.GetEnvironmentVariable("CONTENT_SAFETY_ENDPOINT")!;
+            string key = Environment.GetEnvironmentVariable("CONTENT_SAFETY_KEY")!;
 
             ContentSafetyClient client = new ContentSafetyClient(new Uri(endpoint), new AzureKeyCredential(key));
-
+            
+            if (String.IsNullOrEmpty(sendedText))
+            {
+                throw new ArgumentNullException(nameof(sendedText));
+            }
             string text = sendedText;
-            var request = new AnalyzeTextOptions(text.Substring(0, Math.Min(text.Length, 999)));
+            var request = new AnalyzeTextOptions(text?.Substring(0, Math.Min(text.Length, 999)));
 
             Response<AnalyzeTextResult> response;
             try
