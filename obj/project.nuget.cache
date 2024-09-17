@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "GdXgrpEXSfE=",
+  "dgSpecHash": "XduwS31JEN4=",
   "success": true,
   "projectFilePath": "C:\\Users\\carco\\Documents\\Code\\.NET\\MultiModalNSFWDetector\\MultiModalNSFWDetector.csproj",
   "expectedPackageFiles": [
@@ -8,6 +8,7 @@
     "C:\\Users\\carco\\.nuget\\packages\\azure.core\\1.43.0\\azure.core.1.43.0.nupkg.sha512",
     "C:\\Users\\carco\\.nuget\\packages\\dotnetenv\\3.1.1\\dotnetenv.3.1.1.nupkg.sha512",
     "C:\\Users\\carco\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\6.0.0\\microsoft.bcl.asyncinterfaces.6.0.0.nupkg.sha512",
+    "C:\\Users\\carco\\.nuget\\packages\\microsoft.cognitiveservices.speech\\1.40.0\\microsoft.cognitiveservices.speech.1.40.0.nupkg.sha512",
     "C:\\Users\\carco\\.nuget\\packages\\microsoft.extensions.apidescription.server\\6.0.5\\microsoft.extensions.apidescription.server.6.0.5.nupkg.sha512",
     "C:\\Users\\carco\\.nuget\\packages\\microsoft.extensions.configuration\\1.1.2\\microsoft.extensions.configuration.1.1.2.nupkg.sha512",
     "C:\\Users\\carco\\.nuget\\packages\\microsoft.extensions.configuration.abstractions\\1.1.2\\microsoft.extensions.configuration.abstractions.1.1.2.nupkg.sha512",

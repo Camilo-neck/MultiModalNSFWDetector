@@ -6,44 +6,48 @@ using Azure.AI.ContentSafety;
 using MultiModalNSFWDetector.Models;
 using MultiModalNSFWDetector.Controllers;
 
-namespace MultiModalNSFWDetector.Services;
-class ContentSafetySampleAnalyzeTextService
+// Services/ContentSafetySampleAnalyzeTextService.cs
+namespace MultiModalNSFWDetector.Services
 {
-	private static ILogger<ContentSafetyAnalyzeTextController> _logger;
-	public ContentSafetySampleAnalyzeTextService(ILogger<ContentSafetyAnalyzeTextController> logger)
-	{
-		DotNetEnv.Env.TraversePath().Load();
-		_logger = logger;
-	}
-	public AnalysisResponse AnalyzeText(string? sendedText = null)
-	{
-		// retrieve the endpoint and key from the environment variables created earlier
-		string endpoint = Environment.GetEnvironmentVariable("CONTENT_SAFETY_ENDPOINT");
-		string key = Environment.GetEnvironmentVariable("CONTENT_SAFETY_KEY");
+    public class ContentSafetySampleAnalyzeTextService
+    {
+        private static ILogger<ContentSafetySampleAnalyzeTextService> _logger;
 
-		ContentSafetyClient client = new ContentSafetyClient(new Uri(endpoint), new AzureKeyCredential(key));
+        public ContentSafetySampleAnalyzeTextService(ILogger<ContentSafetySampleAnalyzeTextService> logger)
+        {
+            DotNetEnv.Env.TraversePath().Load();
+            _logger = logger;
+        }
 
-		string text = sendedText;
-		var request = new AnalyzeTextOptions(text.Substring(0, Math.Min(text.Length, 999)));
+        public AnalysisResponse AnalyzeText(string? sendedText = null)
+        {
+            string endpoint = Environment.GetEnvironmentVariable("CONTENT_SAFETY_ENDPOINT");
+            string key = Environment.GetEnvironmentVariable("CONTENT_SAFETY_KEY");
 
-		Response<AnalyzeTextResult> response;
-		try
-		{
-			response = client.AnalyzeText(request);
-		}
-		catch (RequestFailedException ex)
-		{
-			_logger.LogError("Analyze text failed.\nStatus code: {0}, Error code: {1}, Error message: {2}", ex.Status, ex.ErrorCode, ex.Message);
-			throw;
-		}
+            ContentSafetyClient client = new ContentSafetyClient(new Uri(endpoint), new AzureKeyCredential(key));
 
-		return new AnalysisResponse
-		{
-			Text = text,
-			HateSeverity = response.Value.CategoriesAnalysis.FirstOrDefault(a => a.Category == TextCategory.Hate)?.Severity ?? 0,
-			SelfHarmSeverity = response.Value.CategoriesAnalysis.FirstOrDefault(a => a.Category == TextCategory.SelfHarm)?.Severity ?? 0,
-			SexualSeverity = response.Value.CategoriesAnalysis.FirstOrDefault(a => a.Category == TextCategory.Sexual)?.Severity ?? 0,
-			ViolenceSeverity = response.Value.CategoriesAnalysis.FirstOrDefault(a => a.Category == TextCategory.Violence)?.Severity ?? 0
-		};
-	}
+            string text = sendedText;
+            var request = new AnalyzeTextOptions(text.Substring(0, Math.Min(text.Length, 999)));
+
+            Response<AnalyzeTextResult> response;
+            try
+            {
+                response = client.AnalyzeText(request);
+            }
+            catch (RequestFailedException ex)
+            {
+                _logger.LogError("Analyze text failed.\nStatus code: {0}, Error code: {1}, Error message: {2}", ex.Status, ex.ErrorCode, ex.Message);
+                throw;
+            }
+
+            return new AnalysisResponse
+            {
+                Text = text,
+                HateSeverity = response.Value.CategoriesAnalysis.FirstOrDefault(a => a.Category == TextCategory.Hate)?.Severity ?? 0,
+                SelfHarmSeverity = response.Value.CategoriesAnalysis.FirstOrDefault(a => a.Category == TextCategory.SelfHarm)?.Severity ?? 0,
+                SexualSeverity = response.Value.CategoriesAnalysis.FirstOrDefault(a => a.Category == TextCategory.Sexual)?.Severity ?? 0,
+                ViolenceSeverity = response.Value.CategoriesAnalysis.FirstOrDefault(a => a.Category == TextCategory.Violence)?.Severity ?? 0
+            };
+        }
+    }
 }

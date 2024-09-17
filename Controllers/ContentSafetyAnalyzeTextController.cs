@@ -11,11 +11,15 @@ public class ContentSafetyAnalyzeTextController : ControllerBase
 
     private readonly ILogger<ContentSafetyAnalyzeTextController> _logger;
     private readonly ContentSafetySampleAnalyzeTextService _contentSafetySampleAnalyzeTextService;
+    private readonly SpeechToTextService _speechToTextService;
 
-    public ContentSafetyAnalyzeTextController(ILogger<ContentSafetyAnalyzeTextController> logger)
+    public ContentSafetyAnalyzeTextController(ILogger<ContentSafetyAnalyzeTextController> logger, 
+        ContentSafetySampleAnalyzeTextService contentSafetySampleAnalyzeTextService
+        , SpeechToTextService speechToTextService)
     {
         _logger = logger;
-        _contentSafetySampleAnalyzeTextService = new ContentSafetySampleAnalyzeTextService(logger);
+        _contentSafetySampleAnalyzeTextService = contentSafetySampleAnalyzeTextService;
+        _speechToTextService = speechToTextService;
     }
 
     [HttpGet]
@@ -29,5 +33,12 @@ public class ContentSafetyAnalyzeTextController : ControllerBase
     {
         var response = _contentSafetySampleAnalyzeTextService.AnalyzeText(request.Text);
         return response;
+    }
+    
+    [HttpPost("speech")]
+    public async Task SpeechToText(SpeechRequest request)
+    {
+        var audioPath = request.AudioPath;
+        await _speechToTextService.SpeechToText(audioPath);
     }
 }
