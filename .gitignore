@@ -1,0 +1,39 @@
+# Ignore build output
+bin/
+obj/
+
+# Ignore NuGet packages
+*.nupkg
+packages/
+
+# Ignore Visual Studio files
+.vs/
+*.suo
+*.user
+*.sln.docstates
+
+# Ignore Resharper files
+_ReSharper*/
+
+# Ignore build artifacts
+*.dll
+*.exe
+*.pdb
+*.cache
+*.log
+*.vsix
+*.zip
+*.rar
+*.7z
+*.bak
+*.swp
+*.tmp
+
+# Ignore user-specific files
+*.userprefs
+*.usertasks
+*.usersettings
+
+# Ignore miscellaneous files
+Thumbs.db
+.DS_Store

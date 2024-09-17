@@ -43,6 +43,14 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
+            "Azure.AI.ContentSafety": {
+              "target": "Package",
+              "version": "[1.0.0, )"
+            },
+            "Azure.Core": {
+              "target": "Package",
+              "version": "[1.43.0, )"
+            },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
               "version": "[6.4.0, )"
