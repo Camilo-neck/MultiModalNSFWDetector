@@ -36,9 +36,9 @@ public class ContentSafetyAnalyzeTextController : ControllerBase
     }
     
     [HttpPost("speech")]
-    public async Task SpeechToText(SpeechRequest request)
+    public async Task<AnalysisResponse> AnalyzeAudio(SpeechRequest request)
     {
         var audioPath = request.AudioPath;
-        await _speechToTextService.SpeechToText(audioPath);
+        return await _contentSafetySampleAnalyzeTextService.AnalyzeAudio(audioPath);   
     }
 }

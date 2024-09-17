@@ -21,13 +21,13 @@ public class SpeechToTextService
         _logger = logger;
     }
 
-    private static void OutputSpeechToText(SpeechRecognitionResult speechRecognitionResult)
+    private static string OutputSpeechToText(SpeechRecognitionResult speechRecognitionResult)
     {
         switch (speechRecognitionResult.Reason)
         {
             case ResultReason.RecognizedSpeech:
                 _logger.LogInformation($"RECOGNIZED: Text={speechRecognitionResult.Text}");
-                break;  
+                return speechRecognitionResult.Text;
             case ResultReason.NoMatch:
                 _logger.LogError($"NOMATCH: Speech could not be recognized.");
                 break;
@@ -43,9 +43,11 @@ public class SpeechToTextService
                 }
                 break;
         }
+
+        return null;
     }
 
-    public async Task SpeechToText(string audioPath)
+    public async Task<string> SpeechToText(string audioPath)
     {
         var speechConfig = SpeechConfig.FromSubscription(_speechKey, _speechRegion);
         speechConfig.SpeechRecognitionLanguage = "es-CO";
@@ -55,6 +57,6 @@ public class SpeechToTextService
         _logger.LogInformation("Starting speech recognition.");
 
         var result = await recognizer.RecognizeOnceAsync();
-        OutputSpeechToText(result);
+        return OutputSpeechToText(result);
     }
 }
